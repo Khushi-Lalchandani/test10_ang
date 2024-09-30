@@ -1,0 +1,25 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(13, 15vw);
+  grid-gap: 1.5rem;
+
+  &_image {
+    height: 30rem;
+    width: auto;
+    object-fit: cover;
+  }
+}
+
+.upload-container {
+  border: 2px dashed #007bff;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
+.img {
+  max-width: 100%;
+  max-height: 200px;
+  border-radius: 4px;
+}
