@@ -1,0 +1,43 @@
+.overlay {
+  position: fixed;
+
+  top: 30%;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0);
+  left: 30%;
+  padding: 1.4rem;
+
+  background-color: #fff;
+  z-index: 2;
+  height: 30rem;
+  width: 50rem;
+
+  &_icon {
+    height: 2rem;
+    width: 2rem;
+  }
+  &_header {
+    display: flex;
+    justify-content: space-between;
+    &-main {
+      display: flex;
+      gap: 1.2rem;
+    }
+  }
+
+  &_content {
+    &-tag {
+      width: 100%;
+      padding: 1.2rem;
+      border-radius: 12px;
+      outline: none;
+      border: 1px solid #ccc;
+    }
+  }
+
+  &_buttons {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: flex-end;
+    align-items: center;
+  }
+}

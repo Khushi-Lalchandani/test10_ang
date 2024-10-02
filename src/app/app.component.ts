@@ -14,6 +14,8 @@ export class AppComponent {
   uploading: boolean = false;
   showOverlay: boolean = false;
   imageDetails: Image[] = this.imgService.imageDetails;
+  showEditOverlay: boolean = false;
+
   onDragOver(event: DragEvent) {
     event.preventDefault();
   }

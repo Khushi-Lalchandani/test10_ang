@@ -8,14 +8,24 @@ export class ImageService implements OnInit {
   imageDetails: Image[] = [
     {
       url: 'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=600',
+      name: 'nature',
       tag: ['nature'],
     },
     {
       url: 'https://images.pexels.com/photos/1386604/pexels-photo-1386604.jpeg?auto=compress&cs=tinysrgb&w=600',
+      name: 'nature',
+
       tag: ['nature', 'girl', 'brown'],
     },
     {
       url: 'https://images.pexels.com/photos/326212/pexels-photo-326212.jpeg?auto=compress&cs=tinysrgb&w=600',
+      name: 'nature',
+
+      tag: ['nature'],
+    },
+    {
+      url: 'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=600',
+      name: 'nature',
       tag: ['nature'],
     },
   ];

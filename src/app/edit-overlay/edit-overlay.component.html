@@ -1,0 +1,32 @@
+<div class="overlay">
+  <div class="overlay_header">
+    <div class="overlay_header-main">
+      <img
+        src="../../assets/images/tag.png"
+        alt="Tag icon"
+        class="overlay_icon"
+      />
+      <p>Tagging</p>
+    </div>
+    <div class="overlay_header-close">
+      <img
+        src="../../assets/images/close-option.png"
+        alt="Close icon"
+        class="overlay_icon"
+        (click)="onEmit()"
+      />
+    </div>
+  </div>
+  <div class="overlay_content">
+    <p>Image name</p>
+
+    <input type="text" placeholder="Add Tags" class="overlay_content-tag" />
+  </div>
+
+  <div class="overlay_tags"></div>
+  <br />
+  <div class="overlay_buttons">
+    <button class="btn btn-primary">Update</button>
+    <button class="btn btn-default" (click)="onEmit()">Cancel</button>
+  </div>
+</div>
