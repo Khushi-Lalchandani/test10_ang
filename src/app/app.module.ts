@@ -4,10 +4,17 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayComponent } from './overlay/overlay.component';
+import { FormsModule } from '@angular/forms';
+import { TagPipe } from './tag.pipe';
 
 @NgModule({
-  declarations: [AppComponent, OverlayComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule],
+  declarations: [AppComponent, OverlayComponent, TagPipe],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -5,6 +5,7 @@
         src="../../assets/images/bin.png"
         alt="Delete icon"
         class="overlay_content-image"
+        (click)="onDelete()"
       />
       <span class="overlay_content-text">Delete</span>
     </div>
@@ -12,11 +13,12 @@
       src="../../assets/images/close-option.png"
       alt="Close icon"
       class="overlay_content-image"
+      (click)="emit()"
     />
   </div>
   <p class="overlay_text">Are you sure you would like to Delete image?</p>
   <div class="overlay_button">
     <button class="btn btn-danger" style="margin-right: 1.2rem">Delete</button>
-    <button class="btn btn-default">Cancel</button>
+    <button class="btn btn-default" (click)="emit()">Cancel</button>
   </div>
 </div>

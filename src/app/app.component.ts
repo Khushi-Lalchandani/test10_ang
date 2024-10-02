@@ -9,6 +9,7 @@ import { ImageService } from './image.service';
 })
 export class AppComponent {
   imageUrl!: string;
+  tag!: string;
   fileName!: string;
   uploading: boolean = false;
   showOverlay: boolean = false;
@@ -38,15 +39,19 @@ export class AppComponent {
     }
   }
 
-  appendData(url: string, tag: string) {
+  appendData(url: string, tag: string[]) {
     this.imgService.imageDetails.push({ url: url, tag: tag });
   }
-  onUpload() {
+  onUpload(tag: string) {
     this.uploading = true;
 
+    const tag2 = tag.split(',');
+    console.log(tag2);
     setTimeout(() => {
       this.uploading = false;
-      this.appendData(this.imageUrl, this.fileName);
+
+      this.appendData(this.imageUrl, tag2);
+
       this.imageUrl = '';
     }, 4000);
   }
@@ -54,8 +59,6 @@ export class AppComponent {
     this.fileName = '';
     this.imageUrl = '';
   }
-  onToggleOverlay() {
-    this.showOverlay = !this.showOverlay;
-  }
+
   constructor(private imgService: ImageService) {}
 }

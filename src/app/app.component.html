@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [ngClass]="{ blur: showOverlay }">
   <div class="row">
     <div class="col-xs-12">
       <h1>Image gallery</h1>
@@ -10,49 +10,73 @@
             id="grid_image"
             [alt]="image.tag"
           />
-          <!-- <div class="grid_image-tag">{{ image.tag }}</div> -->
           <div class="icon_container">
-            <img
-              src="../assets/images/dustbin.png"
-              alt="Delete icon"
-              class="grid_icon"
-              (click)="onToggleOverlay()"
-            />
+            <div class="icon_container-1">
+              <img
+                src="../assets/images/dustbin.png"
+                alt="Delete icon"
+                class="grid_icon"
+                (click)="showOverlay = true"
+              />
+            </div>
+            <div class="icon_container-1">
+              <img
+                src="../assets/images/three-dots.png"
+                alt="Delete icon"
+                class="grid_icon"
+              />
+            </div>
+          </div>
+
+          <div
+            *ngIf="image.tag | showTwoItems as limitedItems"
+            class="tag_container"
+          >
+            <div class="tag_container-plus">+</div>
+            <div class="grid_image-tag" *ngFor="let tag1 of limitedItems.items">
+              {{ tag1 }}
+            </div>
+            <span *ngIf="limitedItems.extra > 0" class="extra-count">
+              +{{ limitedItems.extra }}
+            </span>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<div
-  class="upload-container"
-  (drop)="onDrop($event)"
-  (dragover)="onDragOver($event)"
->
-  <input
-    type="file"
-    *ngIf="!imageUrl"
-    (change)="onFileSelected($event)"
-    accept="image/*"
-  />
-  <p *ngIf="!imageUrl">Drag and drop your images here</p>
-
-  <div class="preview" *ngIf="imageUrl">
-    <img class="img" [src]="imageUrl" alt="Preview" />
-    <br />
-    <button class="btn btn-primary" (click)="onUpload()">Upload image</button>
-    <button class="btn btn-danger" (click)="onDelete()">Delete image</button>
-  </div>
   <div
-    class="upload"
-    [ngStyle]="uploading ? { display: 'block' } : { display: 'none' }"
+    class="upload-container"
+    (drop)="onDrop($event)"
+    (dragover)="onDragOver($event)"
   >
-    <p>Uploading...</p>
-    <div class="upload_outer">
-      <div class="upload_inside"></div>
+    <input
+      type="file"
+      *ngIf="!imageUrl"
+      (change)="onFileSelected($event)"
+      accept="image/*"
+    />
+    <p *ngIf="!imageUrl">Drag and drop your images here</p>
+
+    <div class="preview" *ngIf="imageUrl">
+      <img class="img" [src]="imageUrl" alt="Preview" />
+      <br />
+      <input type="text" class="img_tag" [(ngModel)]="tag" />
+
+      <br />
+      <button class="btn btn-primary" (click)="onUpload(tag)">
+        Upload image
+      </button>
+      <button class="btn btn-danger" (click)="onDelete()">Delete image</button>
+    </div>
+    <div
+      class="upload"
+      [ngStyle]="uploading ? { display: 'block' } : { display: 'none' }"
+    >
+      <p>Uploading...</p>
+      <div class="upload_outer">
+        <div class="upload_inside"></div>
+      </div>
     </div>
   </div>
 </div>
-
-<app-overlay *ngIf="showOverlay"></app-overlay>
+<app-overlay *ngIf="showOverlay" (show)="showOverlay = $event"></app-overlay>
