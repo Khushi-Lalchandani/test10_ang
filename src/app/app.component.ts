@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Image } from './format.model';
+import { ImageService } from './image.service';
 
 @Component({
   selector: 'app-root',
@@ -7,29 +9,53 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   imageUrl!: string;
-  onFileSelected(event: Event) {
-    const input = event.target as HTMLInputElement;
-    console.log(input.value);
-  }
+  fileName!: string;
+  uploading: boolean = false;
+  showOverlay: boolean = false;
+  imageDetails: Image[] = this.imgService.imageDetails;
   onDragOver(event: DragEvent) {
-    // console.log(event.dataTransfer?.files);
+    event.preventDefault();
   }
-  onDrop(event: DragEvent) {
-    // console.log(event);
-    console.log(event.dataTransfer?.files);
+
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      this.fileName = file.name;
+      this.imageUrl = URL.createObjectURL(file);
+    }
   }
-  imageDetails: { url: string; tag: string }[] = [
-    {
-      url: 'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=600',
-      tag: 'nature',
-    },
-    {
-      url: 'https://images.pexels.com/photos/1386604/pexels-photo-1386604.jpeg?auto=compress&cs=tinysrgb&w=600',
-      tag: 'nature',
-    },
-    {
-      url: 'https://images.pexels.com/photos/326212/pexels-photo-326212.jpeg?auto=compress&cs=tinysrgb&w=600',
-      tag: 'nature',
-    },
-  ];
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+
+    if (file) {
+      this.fileName = file.name;
+      this.imageUrl = URL.createObjectURL(file);
+    }
+  }
+
+  appendData(url: string, tag: string) {
+    this.imgService.imageDetails.push({ url: url, tag: tag });
+  }
+  onUpload() {
+    this.uploading = true;
+
+    setTimeout(() => {
+      this.uploading = false;
+      this.appendData(this.imageUrl, this.fileName);
+      this.imageUrl = '';
+    }, 4000);
+  }
+  onDelete() {
+    this.fileName = '';
+    this.imageUrl = '';
+  }
+  onToggleOverlay() {
+    this.showOverlay = !this.showOverlay;
+  }
+  constructor(private imgService: ImageService) {}
 }

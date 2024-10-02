@@ -3,12 +3,23 @@
     <div class="col-xs-12">
       <h1>Image gallery</h1>
       <div class="grid">
-        <img
-          *ngFor="let image of imageDetails"
-          [src]="image.url"
-          class="grid_image"
-          [alt]="image.tag"
-        />
+        <div class="img_container" *ngFor="let image of imageDetails">
+          <img
+            [src]="image.url"
+            class="grid_image"
+            id="grid_image"
+            [alt]="image.tag"
+          />
+          <!-- <div class="grid_image-tag">{{ image.tag }}</div> -->
+          <div class="icon_container">
+            <img
+              src="../assets/images/dustbin.png"
+              alt="Delete icon"
+              class="grid_icon"
+              (click)="onToggleOverlay()"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -21,16 +32,27 @@
 >
   <input
     type="file"
+    *ngIf="!imageUrl"
     (change)="onFileSelected($event)"
     accept="image/*"
-    hidden
-    multiple
   />
-  <p>Drag and drop your images here, or click to select</p>
+  <p *ngIf="!imageUrl">Drag and drop your images here</p>
 
   <div class="preview" *ngIf="imageUrl">
     <img class="img" [src]="imageUrl" alt="Preview" />
+    <br />
+    <button class="btn btn-primary" (click)="onUpload()">Upload image</button>
+    <button class="btn btn-danger" (click)="onDelete()">Delete image</button>
+  </div>
+  <div
+    class="upload"
+    [ngStyle]="uploading ? { display: 'block' } : { display: 'none' }"
+  >
+    <p>Uploading...</p>
+    <div class="upload_outer">
+      <div class="upload_inside"></div>
+    </div>
   </div>
 </div>
 
-<!-- <div class="drop-zone">Drag something here...</div> -->
+<app-overlay *ngIf="showOverlay"></app-overlay>
