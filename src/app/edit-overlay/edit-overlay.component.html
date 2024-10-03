@@ -13,17 +13,31 @@
         src="../../assets/images/close-option.png"
         alt="Close icon"
         class="overlay_icon"
+        style="cursor: pointer"
         (click)="onEmit()"
       />
     </div>
   </div>
   <div class="overlay_content">
-    <p>Image name</p>
+    <p>
+      Image_name: <strong>{{ select[0].name }}</strong>
+    </p>
 
     <input type="text" placeholder="Add Tags" class="overlay_content-tag" />
   </div>
 
-  <div class="overlay_tags"></div>
+  <div class="overlay_tags">
+    <div *ngFor="let tag of select[0].tag" class="overlay_tags-tag">
+      {{ tag }}
+      <span
+        ><img
+          src="../../assets/images/close-option.png"
+          alt="Close icon"
+          style="height: 1.2rem; width: 1.2rem; cursor: pointer"
+      /></span>
+    </div>
+    <div class="overlay_tags-plus">+</div>
+  </div>
   <br />
   <div class="overlay_buttons">
     <button class="btn btn-primary">Update</button>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Image } from './format.model';
 import { ImageService } from './image.service';
 
@@ -7,19 +7,29 @@ import { ImageService } from './image.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   imageUrl!: string;
+  nameOfImage!: string;
   tag!: string;
   fileName!: string;
   uploading: boolean = false;
   showOverlay: boolean = false;
   imageDetails: Image[] = this.imgService.imageDetails;
   showEditOverlay: boolean = false;
+  selectedImage!: Image[];
 
+  ngOnInit(): void {}
   onDragOver(event: DragEvent) {
     event.preventDefault();
   }
-
+  show(image: Image) {
+    this.showOverlay = true;
+    this.selectedImage = [image];
+  }
+  showEdit(image: Image) {
+    this.showEditOverlay = true;
+    this.selectedImage = [image];
+  }
   onDrop(event: DragEvent): void {
     event.preventDefault();
 
@@ -41,8 +51,8 @@ export class AppComponent {
     }
   }
 
-  appendData(url: string, tag: string[]) {
-    this.imgService.imageDetails.push({ url: url, tag: tag });
+  appendData(url: string, name: string, tag: string[]) {
+    this.imgService.imageDetails.push({ url: url, name: name, tag: tag });
   }
   onUpload(tag: string) {
     this.uploading = true;
@@ -51,9 +61,7 @@ export class AppComponent {
     console.log(tag2);
     setTimeout(() => {
       this.uploading = false;
-
-      this.appendData(this.imageUrl, tag2);
-
+      this.appendData(this.imageUrl, this.nameOfImage, tag2);
       this.imageUrl = '';
     }, 4000);
   }

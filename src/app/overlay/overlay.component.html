@@ -5,7 +5,6 @@
         src="../../assets/images/bin.png"
         alt="Delete icon"
         class="overlay_content-image"
-        (click)="onDelete()"
       />
       <span class="overlay_content-text">Delete</span>
     </div>
@@ -13,12 +12,20 @@
       src="../../assets/images/close-option.png"
       alt="Close icon"
       class="overlay_content-image"
-      (click)="emit()"
+      (click)="onEmit()"
     />
   </div>
-  <p class="overlay_text">Are you sure you would like to Delete image?</p>
+  <p class="overlay_text">
+    Are you sure you would like to Delete "{{ select[0].name }}" image?
+  </p>
   <div class="overlay_button">
-    <button class="btn btn-danger" style="margin-right: 1.2rem">Delete</button>
-    <button class="btn btn-default" (click)="emit()">Cancel</button>
+    <button
+      class="btn btn-danger"
+      style="margin-right: 1.2rem"
+      (click)="deleteImage(select[0].name, select[0].url)"
+    >
+      Delete
+    </button>
+    <button class="btn btn-default" (click)="onEmit()">Cancel</button>
   </div>
 </div>

@@ -1,3 +1,5 @@
+@import "../variables";
+
 .overlay {
   position: fixed;
 
@@ -30,7 +32,7 @@
       padding: 1.2rem;
       border-radius: 12px;
       outline: none;
-      border: 1px solid #ccc;
+      border: 1px solid $color-gray-medium;
     }
   }
 
@@ -39,5 +41,39 @@
     gap: 1.2rem;
     justify-content: flex-end;
     align-items: center;
+  }
+
+  &_tags {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+
+    &-tag {
+      padding: 0.6rem 1.2rem;
+      background-color: $color-gray-light;
+      border-radius: 10px;
+
+      &:hover {
+        cursor: pointer;
+        background-color: $color-gray-medium;
+      }
+    }
+    &-plus {
+      margin-right: 1rem;
+      border: 1px solid $color-gray-light;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      border-radius: 50%;
+
+      &:hover {
+        background-color: $color-gray-light;
+        cursor: pointer;
+      }
+    }
   }
 }

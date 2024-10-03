@@ -41,7 +41,14 @@
     }
   }
   .img_container {
-    box-shadow: 10px 10px 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 10px 10px 16px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+
+    &:hover {
+      box-shadow: 10px 10px 16px rgba(0, 0, 0, 0.2);
+      transform: scale(1.01);
+      cursor: pointer;
+    }
   }
   &_icon {
     height: 2rem;

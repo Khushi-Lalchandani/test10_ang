@@ -23,11 +23,6 @@ export class ImageService implements OnInit {
 
       tag: ['nature'],
     },
-    {
-      url: 'https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=600',
-      name: 'nature',
-      tag: ['nature'],
-    },
   ];
 
   ngOnInit(): void {
@@ -39,6 +34,15 @@ export class ImageService implements OnInit {
       this.imageDetails
     );
   }
+  deleteImage(name: any, url: string) {
+    this.imageDetails = this.imageDetails.filter((image: Image) => {
+      return image.url !== url;
+    });
+    return this.imageDetails;
+  }
 
+  getImages(): Image[] {
+    return this.imageDetails;
+  }
   constructor(public http: HttpClient) {}
 }

@@ -3,14 +3,17 @@
     <div class="col-xs-12">
       <h1>Image gallery</h1>
       <div class="grid">
-        <div class="img_container" *ngFor="let image of imageDetails">
+        <div
+          class="img_container"
+          *ngFor="let image of imageDetails; let i = index"
+        >
           <div class="icon_container">
             <div class="icon_container-1">
               <img
                 src="../assets/images/dustbin.png"
                 alt="Delete icon"
                 class="grid_icon"
-                (click)="showOverlay = true"
+                (click)="show(image)"
               />
             </div>
             <div class="icon_container-1">
@@ -18,11 +21,11 @@
                 src="../assets/images/three-dots.png"
                 alt="Edit icon"
                 class="grid_icon"
-                (click)="showEditOverlay = true"
+                (click)="showEdit(image)"
               />
             </div>
           </div>
-          <img class="grid_image" [src]="image.url" [alt]="image.tag" />
+          <img class="grid_image" [src]="image.url" [alt]="image.name" />
           <div class="img_details">
             <p class="grid_image-name">{{ image.name }}</p>
 
@@ -60,8 +63,18 @@
         <div class="preview" *ngIf="imageUrl">
           <img class="img" [src]="imageUrl" alt="Preview" />
           <br />
-          <input type="text" class="img_tag" [(ngModel)]="tag" />
-          <input type="text" class="img_tag" [(ngModel)]="tag" />
+          <input
+            type="text"
+            class="img_tag"
+            placeholder="Enter name of your image"
+            [(ngModel)]="nameOfImage"
+          />
+          <input
+            type="text"
+            class="img_tag"
+            placeholder="Enter tag for your image"
+            [(ngModel)]="tag"
+          />
 
           <br />
           <button class="btn btn-primary" (click)="onUpload(tag)">
@@ -84,8 +97,15 @@
     </div>
   </div>
 </div>
-<app-overlay *ngIf="showOverlay" (show)="showOverlay = $event"></app-overlay>
+
+<app-overlay
+  *ngIf="showOverlay"
+  (show)="showOverlay = $event"
+  [select]="selectedImage"
+  (emitDetails)="imageDetails = $event"
+></app-overlay>
 <app-edit-overlay
   *ngIf="showEditOverlay"
+  [select]="selectedImage"
   (showEdit)="showEditOverlay = $event"
 ></app-edit-overlay>
