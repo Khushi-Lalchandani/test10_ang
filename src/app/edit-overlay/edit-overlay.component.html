@@ -23,7 +23,13 @@
       Image_name: <strong>{{ select[0].name }}</strong>
     </p>
 
-    <input type="text" placeholder="Add Tags" class="overlay_content-tag" />
+    <input
+      type="text"
+      placeholder="Add Tags"
+      [(ngModel)]="tags"
+      (keydown)="onInput($event)"
+      class="overlay_content-tag"
+    />
   </div>
 
   <div class="overlay_tags">
