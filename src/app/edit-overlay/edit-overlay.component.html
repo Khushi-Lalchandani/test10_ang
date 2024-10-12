@@ -27,7 +27,6 @@
       type="text"
       placeholder="Add Tags"
       [(ngModel)]="tags"
-      (keydown)="onInput($event)"
       class="overlay_content-tag"
     />
   </div>
@@ -35,7 +34,7 @@
   <div class="overlay_tags">
     <div *ngFor="let tag of select[0].tag" class="overlay_tags-tag">
       {{ tag }}
-      <span
+      <span (click)="emitDeletedImage(tag)"
         ><img
           src="../../assets/images/close-option.png"
           alt="Close icon"
@@ -46,7 +45,9 @@
   </div>
   <br />
   <div class="overlay_buttons">
-    <button class="btn btn-primary">Update</button>
+    <button class="btn btn-primary" (click)="emitSelectedImage()">
+      Update
+    </button>
     <button class="btn btn-default" (click)="onEmit()">Cancel</button>
   </div>
 </div>

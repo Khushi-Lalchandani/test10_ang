@@ -10,16 +10,25 @@ import { Image } from '../format.model';
 export class EditOverlayComponent implements OnInit {
   tags!: string;
   @Output() showEdit = new EventEmitter<boolean>();
+  @Output() emitImage = new EventEmitter<Image>();
   @Input() select!: Image[];
   constructor(private imgService: ImageService) {}
   ngOnInit(): void {}
   onEmit() {
     this.showEdit.emit(false);
   }
-  onInput($event: KeyboardEvent) {
-    if ($event.key === 'Enter') {
+
+  emitSelectedImage() {
+    if (this.tags) {
       this.select[0].tag.push(this.tags);
-      console.log(this.select, this.tags);
+    }
+    this.emitImage.emit(this.select[0]);
+  }
+  emitDeletedImage(tagToRemove: string) {
+    if (tagToRemove) {
+      this.select[0].tag = this.select[0].tag.filter(
+        (tag) => tag !== tagToRemove
+      );
     }
   }
 }

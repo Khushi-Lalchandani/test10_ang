@@ -72,6 +72,14 @@
   max-height: 200px;
   border-radius: 4px;
   margin-bottom: 2rem;
+
+  &_tag {
+    width: 60%;
+    padding: 1rem;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid $color-gray-medium;
+  }
 }
 
 .upload {

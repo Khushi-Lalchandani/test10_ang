@@ -9,16 +9,23 @@ import { ImageService } from '../image.service';
 })
 export class OverlayComponent implements OnInit {
   @Input() select!: Image[];
-  imageDetails: Image[] = this.imgService.getImages();
+  imageDetails!: Image[];
   @Output() emitDetails = new EventEmitter<Image[]>();
   @Output() show = new EventEmitter<boolean>();
-  ngOnInit(): void {}
-  deleteImage(name: any, url: any) {
-    this.show.emit(false);
-
-    this.imageDetails = this.imgService.deleteImage(name, url);
-    this.emitDetails.emit(this.imageDetails);
+  ngOnInit(): void {
+    this.imgService.getImages().subscribe((images) => {
+      this.imageDetails = images;
+    });
   }
+  deleteImage(url: any) {
+    this.show.emit(false);
+    this.imgService.deleteImage(url);
+    this.imageDetails = [...this.imgService.originalImageDetails];
+    this.imgService.updateImageDetails(this.imageDetails).subscribe(() => {
+      this.emitDetails.emit(this.imageDetails);
+    });
+  }
+
   onEmit() {
     this.show.emit(false);
   }

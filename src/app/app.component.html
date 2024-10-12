@@ -33,14 +33,18 @@
               *ngIf="image.tag | showTwoItems as limitedItems"
               class="tag_container"
             >
-              <div class="tag_container-plus">+</div>
+              <div class="tag_container-plus" (click)="showEdit(image)">+</div>
               <div
                 class="grid_image-tag"
                 *ngFor="let tag1 of limitedItems.items"
               >
                 {{ tag1 }}
               </div>
-              <span *ngIf="limitedItems.extra > 0" class="extra-count">
+              <span
+                (click)="showEdit(image)"
+                *ngIf="limitedItems.extra > 0"
+                class="extra-count"
+              >
                 + {{ limitedItems.extra }}
               </span>
             </div>
@@ -69,6 +73,8 @@
             placeholder="Enter name of your image"
             [(ngModel)]="nameOfImage"
           />
+          <br />
+          <br />
           <input
             type="text"
             class="img_tag"
@@ -76,6 +82,7 @@
             [(ngModel)]="tag"
           />
 
+          <br />
           <br />
           <button class="btn btn-primary" (click)="onUpload(tag)">
             Upload image
@@ -108,4 +115,5 @@
   *ngIf="showEditOverlay"
   [select]="selectedImage"
   (showEdit)="showEditOverlay = $event"
+  (emitImage)="getUpdatedImage($event)"
 ></app-edit-overlay>

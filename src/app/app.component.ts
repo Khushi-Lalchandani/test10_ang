@@ -14,11 +14,22 @@ export class AppComponent implements OnInit {
   fileName!: string;
   uploading: boolean = false;
   showOverlay: boolean = false;
-  imageDetails: Image[] = this.imgService.imageDetails;
+  imageDetails!: Image[];
   showEditOverlay: boolean = false;
   selectedImage!: Image[];
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.imgService.detectChange.next(false);
+    this.imgService.detectChange.subscribe((changed) => {
+      if (changed) {
+        this.uploadChanges();
+      }
+    });
+    this.imgService.getImages().subscribe((images) => {
+      this.imageDetails = images;
+      this.imgService.originalImageDetails = images;
+    });
+  }
   onDragOver(event: DragEvent) {
     event.preventDefault();
   }
@@ -47,18 +58,24 @@ export class AppComponent implements OnInit {
 
     if (file) {
       this.fileName = file.name;
+
       this.imageUrl = URL.createObjectURL(file);
     }
   }
 
   appendData(url: string, name: string, tag: string[]) {
-    this.imgService.imageDetails.push({ url: url, name: name, tag: tag });
+    this.imgService.originalImageDetails.push({
+      url: url,
+      name: name,
+      tag: tag,
+    });
+    this.imgService.detectChange.next(true);
   }
   onUpload(tag: string) {
     this.uploading = true;
 
     const tag2 = tag.split(',');
-    console.log(tag2);
+    // console.log(tag2);
     setTimeout(() => {
       this.uploading = false;
       this.appendData(this.imageUrl, this.nameOfImage, tag2);
@@ -69,6 +86,31 @@ export class AppComponent implements OnInit {
     this.fileName = '';
     this.imageUrl = '';
   }
+  getUpdatedImage($event: Image) {
+    this.selectedImage = [$event];
+    // console.log(this.selectedImage);
+    this.imageDetails = this.imageDetails.map((i) => {
+      if (i.url === this.selectedImage[0].url) {
+        return { ...i, ...this.selectedImage[0] };
+      }
+      return i;
+    });
+    this.detectChanges();
+    this.showEditOverlay = false;
+  }
 
+  detectChanges() {
+    this.imgService.detectChange.next(true);
+  }
+  uploadChanges() {
+    this.imgService.updateImageDetails(this.imageDetails).subscribe(
+      (response) => {
+        console.log('Updated successfully', response);
+      },
+      (error) => {
+        console.error('Error updating data', error);
+      }
+    );
+  }
   constructor(private imgService: ImageService) {}
 }
