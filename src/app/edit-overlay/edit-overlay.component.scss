@@ -76,4 +76,16 @@
       }
     }
   }
+
+  @media screen and (max-width: 800px) {
+    left: 20%;
+    width: 45rem;
+  }
+  @media screen and (max-width: 600px) {
+    left: 10%;
+    width: 30rem;
+  }
+  @media screen and (max-width: 350px) {
+    width: 25rem;
+  }
 }

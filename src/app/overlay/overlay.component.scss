@@ -45,4 +45,12 @@
     margin: 1rem auto;
     width: 60%;
   }
+
+  @media screen and (max-width: 600px) {
+    left: 20%;
+  }
+  @media screen and (max-width: 400px) {
+    left: 5%;
+    width: 25rem;
+  }
 }
