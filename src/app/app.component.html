@@ -2,6 +2,24 @@
   <div class="row">
     <div class="col-xs-12">
       <h1>Image gallery</h1>
+
+      <div
+        style="display: flex; align-items: center; justify-content: flex-end"
+      >
+        <input
+          type="text"
+          style="
+            padding: 1.2rem;
+            border-radius: 10px;
+            outline: none;
+            border: 1px solid #999;
+            margin-right: 2rem;
+          "
+          placeholder="Search by tag..."
+          [(ngModel)]="searchTag"
+          (input)="onInput()"
+        />
+      </div>
       <div class="grid">
         <div
           class="img_container"
@@ -84,7 +102,11 @@
 
           <br />
           <br />
-          <button class="btn btn-primary" (click)="onUpload(tag)">
+          <button
+            class="btn btn-primary"
+            [disabled]="!tag || !nameOfImage"
+            (click)="onUpload(tag)"
+          >
             Upload image
           </button>
           <button class="btn btn-danger" (click)="onDelete()">

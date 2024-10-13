@@ -13,7 +13,7 @@
   &_image {
     height: 30rem;
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
     position: relative;
     margin-bottom: 1rem;
 
@@ -43,6 +43,7 @@
   .img_container {
     box-shadow: 10px 10px 16px rgba(0, 0, 0, 0.1);
     transition: all 0.3s;
+    background-color: #faf9f9;
 
     &:hover {
       box-shadow: 10px 10px 16px rgba(0, 0, 0, 0.2);

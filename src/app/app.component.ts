@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   imageDetails!: Image[];
   showEditOverlay: boolean = false;
   selectedImage!: Image[];
+  searchTag!: string;
 
   ngOnInit(): void {
     this.imgService.detectChange.next(false);
@@ -111,6 +112,17 @@ export class AppComponent implements OnInit {
         console.error('Error updating data', error);
       }
     );
+  }
+  onInput() {
+    if (this.searchTag) {
+      this.imageDetails = this.imageDetails.filter((img) => {
+        return img.tag.some((tag) => {
+          return tag.toLowerCase().includes(this.searchTag.toLowerCase());
+        });
+      });
+    } else {
+      this.imageDetails = this.imgService.originalImageDetails;
+    }
   }
   constructor(private imgService: ImageService) {}
 }
